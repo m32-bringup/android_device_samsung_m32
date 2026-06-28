@@ -6,6 +6,6 @@
 
 LOCAL_PATH := $(call my-dir)
 
-ifneq ($(filter a32, $(TARGET_DEVICE)),)
+ifneq ($(filter a32 m32, $(TARGET_DEVICE)),)
 include $(call all-makefiles-under,$(LOCAL_PATH))
 endif

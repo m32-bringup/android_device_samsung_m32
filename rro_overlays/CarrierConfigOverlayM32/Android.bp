@@ -1,5 +1,5 @@
 runtime_resource_overlay {
-    name: "CarrierConfigOverlayA32",
+    name: "CarrierConfigOverlayM32",
     theme: "CarrierConfigOverlay",
     certificate: "platform",
     sdk_version: "current",

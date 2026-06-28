@@ -142,8 +142,6 @@ PRODUCT_PACKAGES += \
 
 # Fingerprint
 PRODUCT_PACKAGES += \
-    android.hardware.biometrics.fingerprint@2.3-service-samsung.a32 \
-    SamsungUdfpsHandler.a32
 
 # Gatekeeper
 PRODUCT_PACKAGES += \
@@ -242,14 +240,14 @@ PRODUCT_ENFORCE_RRO_EXCLUDED_OVERLAYS += \
     $(LOCAL_PATH)/overlay-lineage
 
 PRODUCT_PACKAGES += \
-    CarrierConfigOverlayA32 \
-    FrameworksResOverlayA32 \
-    SettingsOverlayA32 \
-    SettingsProviderOverlayA32 \
-    SystemUIOverlayA32 \
-    TelephonyOverlayA32 \
-    TetheringConfigOverlayA32 \
-    WifiOverlayA32
+    CarrierConfigOverlayM32 \
+    FrameworksResOverlayM32 \
+    SettingsOverlayM32 \
+    SettingsProviderOverlayM32 \
+    SystemUIOverlayM32 \
+    TelephonyOverlayM32 \
+    TetheringConfigOverlayM32 \
+    WifiOverlayM32
 
 # Permissions
 PRODUCT_COPY_FILES += \
@@ -334,10 +332,8 @@ PRODUCT_PACKAGES += \
     secril_config_svc
 
 # Radio (IMS)
-PRODUCT_BOOT_JARS += \
-    mediatek-common \
-    mediatek-framework \
-    mediatek-ims-base
+# TODO: Add mediatek-common, mediatek-framework, mediatek-ims-base
+# from vendor/mediatek/opensource or stock prebuilt JARs
 
 PRODUCT_COPY_FILES += \
     $(LOCAL_PATH)/configs/permissions/privapp-permissions-mediatek.xml:$(TARGET_COPY_OUT_SYSTEM)/etc/permissions/privapp-permissions-mediatek.xml
@@ -349,7 +345,6 @@ PRODUCT_PACKAGES += \
 # Rootdir
 PRODUCT_PACKAGES += \
     fstab.mt6768 \
-    fstab.mt6769t \
     init.ago.rc \
     init.cgroup.rc \
     init.connectivity.common.rc \
@@ -362,14 +357,10 @@ PRODUCT_PACKAGES += \
     init_connectivity.rc \
     init.recovery.mt6768.rc \
     init.recovery.mt6769t.rc \
-    init.recovery.samsung.rc \
-    init.target.rc \
-    ueventd.mtk.rc
+    init.recovery.samsung.rc
 
 PRODUCT_COPY_FILES += \
-    $(LOCAL_PATH)/rootdir/etc/fstab.mt6768:$(TARGET_COPY_OUT_RAMDISK)/fstab.mt6768 \
-    $(LOCAL_PATH)/rootdir/etc/fstab.mt6769t:$(TARGET_COPY_OUT_RAMDISK)/fstab.mt6769t \
-    $(LOCAL_PATH)/rootdir/etc/fstab.mt6769t:$(TARGET_COPY_OUT_RECOVERY)/root/first_stage_ramdisk/fstab.mt6769t
+    $(LOCAL_PATH)/rootdir/etc/fstab.mt6768:$(TARGET_COPY_OUT_RAMDISK)/fstab.mt6768
 
 # Seccomp policy
 PRODUCT_COPY_FILES += \
@@ -448,4 +439,4 @@ PRODUCT_COPY_FILES += \
     $(LOCAL_PATH)/configs/wifi/wpa_supplicant.conf:$(TARGET_COPY_OUT_VENDOR)/etc/wifi/wpa_supplicant.conf
 
 # Inherit the proprietary files
-$(call inherit-product, vendor/samsung/a32/a32-vendor.mk)
+$(call inherit-product, vendor/samsung/m32/m32-vendor.mk)

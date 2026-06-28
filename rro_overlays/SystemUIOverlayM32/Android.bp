@@ -1,5 +1,5 @@
 runtime_resource_overlay {
-    name: "FrameworksResOverlayA32",
+    name: "SystemUIOverlayM32",
     sdk_version: "current",
     resource_dirs: ["res"],
     product_specific: true,

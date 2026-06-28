@@ -1,5 +1,5 @@
 runtime_resource_overlay {
-    name: "TelephonyOverlayA32",
+    name: "TelephonyOverlayM32",
     sdk_version: "current",
     resource_dirs: ["res"],
     product_specific: true,

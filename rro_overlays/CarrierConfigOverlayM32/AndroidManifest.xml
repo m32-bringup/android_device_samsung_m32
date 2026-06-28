@@ -11,10 +11,13 @@
      limitations under the License.
 -->
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.android.settings.overlay.a32">
+    package="com.android.carrierconfig.m32"
+    android:versionCode="1"
+    android:versionName="1.0">
     <application android:hasCode="false" />
     <overlay
-      android:targetPackage="com.android.settings"
+      android:targetPackage="com.android.carrierconfig"
+      android:targetName="CarrierConfig"
       android:isStatic="true"
-      android:priority="1"/>
+      android:priority="0"/>
 </manifest>
