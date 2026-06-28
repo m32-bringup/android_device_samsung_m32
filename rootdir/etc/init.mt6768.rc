@@ -1,17 +1,19 @@
 # MTK platform .rc configure
 
-import /vendor/etc/init/hw/init.connectivity.rc
-import /vendor/etc/init/hw/init.mt6768.usb.rc
+import ${ro.vendor.rc}init.connectivity.rc
+import ${ro.vendor.rc}init.mt6768.usb.rc
 import /vendor/etc/init/hw/init.project.rc
+import /system_ext/etc/init/hw/init.aee.rc
 import /FWUpgradeInit.rc
-import /vendor/etc/init/hw/init.volte.rc
-import /vendor/etc/init/hw/init.mal.rc
-import /vendor/etc/init/hw/init.ago.rc
+import /vendor/etc/init/hw/init.aee.rc
+import ${ro.vendor.rc}init.volte.rc
+import ${ro.vendor.rc}init.mal.rc
+import ${ro.vendor.rc}init.ago.rc
 import /vendor/etc/init/hw/init.stnfc.rc
 import /system/etc/init/hw/init.stnfc.rc
 
 # init.modem.rc must be the LAST rc file because vold.post_fs_data_done is set in it
-import /vendor/etc/init/hw/init.modem.rc
+import ${ro.vendor.rc}init.modem.rc
 # *** DO NOT import the new rc file after this line ***
 
 on early-init
@@ -25,6 +27,8 @@ on early-init
 
 on init
     write /proc/bootprof "INIT:init"
+    # Support legacy paths
+    symlink /sdcard /mnt/sdcard
 
     # Param
     symlink /dev/block/by-name/param /dev/block/param
@@ -32,6 +36,8 @@ on init
     symlink /dev/block/by-name/persistent /dev/block/persistent
     # if primary storage is physical, set ro.vold.primary_physical to 1
     # setprop ro.vold.primary_physical 1
+
+    mkdir /mnt/cd-rom 0000 system system
 
 # change lk_env permission
     chown root system /proc/lk_env
@@ -45,7 +51,7 @@ on init
     write /dev/cpuset/foreground/cpus 0-7
     write /dev/cpuset/foreground/boost/cpus 0-7
     write /dev/cpuset/background/cpus 0-3
-    write /dev/cpuset/system-background/cpus 0-3
+    write /dev/cpuset/system-background/cpus 0-5
     write /dev/cpuset/top-app/cpus 0-7
 
 # GPIS HINT (MT6868 & 6869)
@@ -76,8 +82,11 @@ on charger
     write /proc/perfmgr/boost_ctrl/cpu_ctrl/boot_freq "-1 -1 -1 -1"
     write /sys/devices/platform/10012000.dvfsrc/helio-dvfsrc/dvfsrc_req_ddr_opp -1
 
+    exec /system/bin/e2fsck -f -p /dev/block/platform/bootdevice/by-name/cache
+    mount ext4 /dev/block/platform/bootdevice/by-name/cache /cache rw wait
     chmod 0660 /dev/spm
     chown system system /dev/spm
+    start spm_script
     chmod 0666 /dev/kmsg
     chmod 0775 /mnt/vendor
     mkdir /mnt/vendor/nvcfg
@@ -103,6 +112,12 @@ on charger
     start fuelgauged
     start fuelgauged_nvram
 
+    chown system system /sys/class/leds/lcd-backlight/brightness
+    chown system system /sys/class/leds/red/brightness
+    chown system system /sys/class/leds/green/brightness
+
+    start vendor.light-default
+
     # Stop bootprof
     write /proc/bootprof "0"
 
@@ -114,6 +129,7 @@ on early-fs
 
 on fs
     write /proc/bootprof "INIT:fs"
+    start vendor.boot-hal-1-2
 
     # mount fstab
     write /proc/bootprof "INIT:Mount_START"
@@ -128,9 +144,8 @@ on fs
     write /proc/bootprof "INIT:Mount_END"
 
     write /proc/sys/vm/page-cluster 0
-    write /proc/sys/vm/swappiness 60
+    write /proc/sys/vm/swappiness 130
     write /sys/kernel/mm/swap/vma_ra_enabled false
-    swapon_all /vendor/etc/fstab.mt6768
 
     mount iso9660 loop@/vendor/etc/iAmCdRom.iso /mnt/cd-rom ro
 
@@ -143,6 +158,9 @@ on post-fs
     write /proc/perfmgr/boost_ctrl/eas_ctrl/boot_boost "2 100"
     write /proc/perfmgr/boost_ctrl/eas_ctrl/boot_boost "3 100"
     write /proc/perfmgr/boost_ctrl/eas_ctrl/sched_stune_task_thresh 0
+
+    # Support legacy paths
+    symlink /sdcard /storage/sdcard0
 
     #change permissions for mediaserver
     chown root media /proc/clkmgr/mipi_test
@@ -255,10 +273,6 @@ on post-fs-data
     mkdir /data/vendor/flicker
     chown root system /data/vendor/flicker
     chmod 0771 /data/vendor/flicker
-
-    # Create Audio HAL data directory
-    mkdir /data/vendor/audiohal 0771 system audio
-    mkdir /data/vendor/audiohal/audio_param 0771 system audio
 
     #Add /mnt/vendor/efs mount point
     chown radio system /mnt/vendor/efs
@@ -778,11 +792,11 @@ on post-fs-data
     setrlimit 8 67108864 67108864
 
     # CMDQ
-    chmod 0644 /dev/mtk_cmdq
+    chmod 0640 /dev/mtk_cmdq
     chown system system /dev/mtk_cmdq
 
     # MDP SYNC
-    chmod 0644 /dev/mdp_sync
+    chmod 0640 /dev/mdp_sync
     chown system system /dev/mdp_sync
 
     #OFFLOAD SERVICE
@@ -819,9 +833,9 @@ on post-fs-data
     chmod 0660 /dev/vcu
     chown media system /dev/vcu
     chmod 0660 /dev/video0
-    chown mediacodec system /dev/video0
+    chown media system /dev/video0
     chmod 0660 /dev/video1
-    chown mediacodec system /dev/video1
+    chown media system /dev/video1
     mkdir /data/vendor/vcodec 0777 media system
     mkdir /data/vendor/vcodec/log 0770 media system
     mkdir /data/vendor/vcodec/in 0770 media system
@@ -1415,15 +1429,36 @@ on boot
 #Power Manager
     write /sys/power/pm_freeze_timeout 2000
 
-service vendor.charger /system/bin/charger
-    class charger
-    user system
-    group system graphics wakelock input
-    capabilities SYS_BOOT
-    file /dev/kmsg w
-    file /sys/fs/pstore/console-ramoops-0 r
-    file /sys/fs/pstore/console-ramoops r
-    file /proc/last_kmsg r
+on property:vold.decrypt=trigger_reset_main
+    write /proc/bootprof "INIT:vold.decrypt=trigger_reset_main"
+    setprop sys.boot_completed 0
+    setprop dev.bootcomplete 0
+
+on property:vold.decrypt=trigger_post_fs_data
+    write /proc/bootprof "INIT:vold.decrypt=trigger_post_fs_data"
+
+on property:vold.decrypt=trigger_restart_min_framework
+    write /proc/bootprof "INIT:vold.decrypt=trigger_restart_min_framework"
+    start nvram_daemon
+    start msensord
+
+on property:vold.decrypt=trigger_restart_framework
+    write /proc/bootprof "INIT:vold.decrypt=trigger_restart_framework"
+    start nvram_daemon
+    start msensord
+
+on property:vold.decrypt=trigger_shutdown_framework
+    write /proc/bootprof "INIT:vold.decrypt=trigger_shutdown_framework"
+    setprop sys.boot_completed 0
+    setprop dev.bootcomplete 0
+
+# bugreport is triggered by holding down volume down, volume up and power
+service bugreport /system/bin/dumpstate -d -p -B -z \
+        -o /data/user_de/0/com.android.shell/files/bugreports/bugreport
+    class late_start
+    disabled
+    oneshot
+    keycodes 114 115 116
 
 # end boot time fs tune
 on property:sys.boot_completed=1
@@ -1443,7 +1478,7 @@ on property:sys.boot_completed=1
 # start EAS+
 on property:sys.boot_completed=1
 
-    write /sys/devices/system/cpu/eas/enable 1
+    write /sys/devices/system/cpu/eas/enable 2
     write /proc/cpufreq/cpufreq_sched_disable 0
     chown system system /dev/stune/foreground/schedtune.prefer_idle
     chown system system /dev/stune/top-app/schedtune.prefer_idle
@@ -1467,10 +1502,6 @@ on property:sys.boot_completed=1
     write /sys/devices/system/cpu/cpufreq/policy4/scaling_governor "schedplus"
     # Stop bootprof
     write /proc/bootprof "0"
-
-# initialize powerHAL when boot is completed
-on property:sys.boot_completed=1
-    setprop vendor.powerhal.init 1
 
 #service dpfd /vendor/bin/dpfd
 #	user root
@@ -1524,6 +1555,17 @@ on property:persist.vendor.mediatek.fg.log.enable=1
     write /sys/bus/platform/devices/battery/FG_daemon_log_level 7
     write /proc/sys/kernel/printk 8
 
+
+# add meta_tst for ATM
+service meta_tst /vendor/bin/meta_tst
+    class core
+    user system
+    group radio gps system wifi audio bluetooth media
+    capabilities NET_RAW NET_ADMIN
+    socket meta-atci stream 660 radio system
+    disabled
+    oneshot
+
 service factory_no_image /vendor/bin/factory
     user root
     group radio system wifi media gps audio bluetooth wakelock nfc
@@ -1532,6 +1574,10 @@ service factory_no_image /vendor/bin/factory
     disabled
     oneshot
 
+# start meta_tst for ATM
+on property:sys.boot_completed=1
+    start meta_tst
+
 # reset mdmode when modem crash happens in ATM
 on property:vendor.mtk.md1.status=reset
     setprop persist.vendor.atm.mdmode normal
@@ -1539,6 +1585,14 @@ on property:vendor.mtk.md1.status=reset
 # FPSGO FBT Game
 on boot
     insmod /vendor/lib/modules/fpsgo.ko
+
+# VSIM service (vendor OSI)
+service osi /system/bin/osi
+    class main
+    user root
+    disabled
+    oneshot
+    #seclabel u:r:osi:s0
 
 # SensorHub
 on post-fs
@@ -1554,13 +1608,3 @@ service pageboostd /system/bin/pageboostd
     group system mount radio net_bt sdcard_rw shell media media_rw
     socket pageboostd seqpacket 0660 system system
     disabled
-
-service charger /system/bin/charger
-    class charger
-    user system
-    group system graphics wakelock input
-    capabilities SYS_BOOT
-    file /dev/kmsg w
-    file /sys/fs/pstore/console-ramoops-0 r
-    file /sys/fs/pstore/console-ramoops r
-    file /proc/last_kmsg r
