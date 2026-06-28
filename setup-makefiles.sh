@@ -8,7 +8,7 @@
 
 set -e
 
-DEVICE=a32
+DEVICE=m32
 VENDOR=samsung
 
 # Load extract_utils and do some sanity checks
