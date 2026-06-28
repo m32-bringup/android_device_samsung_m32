@@ -4,7 +4,7 @@
 # SPDX-License-Identifier: Apache-2.0
 #
 
-DEVICE_PATH := device/samsung/a32
+DEVICE_PATH := device/samsung/m32
 
 BUILD_BROKEN_DUP_RULES := true
 BUILD_BROKEN_PREBUILT_ELF_FILES := true
@@ -29,7 +29,7 @@ TARGET_2ND_CPU_VARIANT := generic
 TARGET_2ND_CPU_VARIANT_RUNTIME := cortex-a55
 
 # Bootloader
-TARGET_BOOTLOADER_BOARD_NAME := a32
+TARGET_BOOTLOADER_BOARD_NAME := m32
 TARGET_NO_BOOTLOADER := true
 
 # Boot Image
@@ -40,101 +40,84 @@ BOARD_KERNEL_TAGS_OFFSET := 0x0bc08000
 BOARD_RAMDISK_OFFSET := 0x07c08000
 BOARD_DTB_OFFSET := 0x0bc08000
 BOARD_SECOND_OFFSET := 0xbff88000
+BOARD_BOOTIMAGE_PARTITION_SIZE := 33554432
+BOARD_CACHEIMAGE_PARTITION_SIZE := 419430400
+BOARD_CACHEIMAGE_FILE_SYSTEM_TYPE := ext4
 
-BOARD_RAMDISK_USE_LZ4 := true
 BOARD_BOOTIMG_HEADER_VERSION := 2
 BOARD_PREBUILT_DTBOIMAGE := $(DEVICE_PATH)/prebuilts/dtbo.img
 BOARD_INCLUDE_DTB_IN_BOOTIMG := true
 
-BOARD_KERNEL_CMDLINE := bootopt=64S3,32N2,64N2 androidboot.selinux=permissive
+BOARD_KERNEL_CMDLINE := bootopt=64S3,32N2,64N2 loop.max_part=7
 
 BOARD_MKBOOTIMG_ARGS := --base $(BOARD_KERNEL_BASE)
 BOARD_MKBOOTIMG_ARGS += --pagesize $(BOARD_KERNEL_PAGESIZE)
 BOARD_MKBOOTIMG_ARGS += --kernel_offset $(BOARD_KERNEL_OFFSET)
 BOARD_MKBOOTIMG_ARGS += --second_offset $(BOARD_SECOND_OFFSET)
-BOARD_MKBOOTIMG_ARGS := --ramdisk_offset $(BOARD_RAMDISK_OFFSET)
+BOARD_MKBOOTIMG_ARGS += --ramdisk_offset $(BOARD_RAMDISK_OFFSET)
 BOARD_MKBOOTIMG_ARGS += --tags_offset $(BOARD_KERNEL_TAGS_OFFSET)
 BOARD_MKBOOTIMG_ARGS += --dtb_offset $(BOARD_DTB_OFFSET)
 BOARD_MKBOOTIMG_ARGS += --header_version $(BOARD_BOOTIMG_HEADER_VERSION)
 BOARD_MKBOOTIMG_ARGS += --board ""
 
-# Graphics
+# Display
+TARGET_SCREEN_DENSITY := 450
 TARGET_USES_ION := true
 
 # Init
-TARGET_INIT_VENDOR_LIB := //$(DEVICE_PATH):libinit_a32
-TARGET_RECOVERY_DEVICE_MODULES := libinit_a32
+TARGET_INIT_VENDOR_LIB := //$(DEVICE_PATH):libinit_m32
+TARGET_RECOVERY_DEVICE_MODULES := libinit_m32
 
-# Kernel
-TARGET_KERNEL_ARCH := arm64
-TARGET_KERNEL_HEADER_ARCH := arm64
-TARGET_KERNEL_SOURCE := kernel/samsung/a32
-TARGET_KERNEL_CONFIG := a32_defconfig
-TARGET_KERNEL_CLANG_COMPILE := true
-TARGET_KERNEL_CLANG_VERSION := r383902
+# Kernel (source build)
 BOARD_KERNEL_IMAGE_NAME := Image.gz
+TARGET_KERNEL_SOURCE := kernel/samsung/mt6768
+TARGET_KERNEL_CONFIG := compiled_defconfig
+# TARGET_KERNEL_ADDITIONAL_CONFIG := m32.config battery.config
 
-#    /home/vigus/los21/device/samsung/a32/prebuilts/modules/fmradio_drv_mt6631.ko \
-BOARD_VENDOR_KERNEL_MODULES += \
-    /home/vigus/los21/device/samsung/a32/prebuilts/modules/fpsgo.ko \
-    /home/vigus/los21/device/samsung/a32/prebuilts/modules/gps_drv.ko \
-    /home/vigus/los21/device/samsung/a32/prebuilts/modules/met.ko \
-    /home/vigus/los21/device/samsung/a32/prebuilts/modules/udc_lib.ko \
-    /home/vigus/los21/device/samsung/a32/prebuilts/modules/connfem.ko \
-    /home/vigus/los21/device/samsung/a32/prebuilts/modules/wmt_chrdev_wifi.ko \
-    /home/vigus/los21/device/samsung/a32/prebuilts/modules/wmt_drv.ko 
-
-#BOARD_VENDOR_KERNEL_MODULES += $(wildcard $(DEVICE_PATH)-kernel/vendor-modules/*.ko)
-TARGET_KERNEL_LLVM_BINUTILS := false
-
-# Partitions
-BOARD_FLASH_BLOCK_SIZE := 131072 # (BOARD_KERNEL_PAGESIZE * 64)
-BOARD_BOOTIMAGE_PARTITION_SIZE := 33554432
+TARGET_KERNEL_CLANG_COMPILE := true
+TARGET_KERNEL_CLANG_PATH := /home/artzabaz/lineage-21/toolchain/clang-20250704
+# TARGET_FORCE_PREBUILT_KERNEL := true
+# TARGET_PREBUILT_KERNEL := $(DEVICE_PATH)/prebuilts/Image.gz
+# BOARD_PREBUILT_DTBIMAGE_DIR := $(DEVICE_PATH)/prebuilts
+# BOARD_PREBUILT_DTBOIMAGE := $(DEVICE_PATH)/prebuilts/dtbo.img
 BOARD_DTBOIMG_PARTITION_SIZE := 8388608
-BOARD_RECOVERYIMAGE_PARTITION_SIZE := 33554432
-BOARD_CACHEIMAGE_PARTITION_SIZE := 209715200
-
-# Partitions - Dynamic
-BOARD_SUPER_PARTITION_SIZE := 7843348480
+BOARD_RECOVERYIMAGE_PARTITION_SIZE := 41943040
+BOARD_SUPER_PARTITION_SIZE := 9126805504
 BOARD_SUPER_PARTITION_GROUPS := samsung_dynamic_partitions
-BOARD_SAMSUNG_DYNAMIC_PARTITIONS_PARTITION_LIST := system odm product vendor
-BOARD_SAMSUNG_DYNAMIC_PARTITIONS_SIZE := 7843344384
+BOARD_SAMSUNG_DYNAMIC_PARTITIONS_PARTITION_LIST := \
+    product \
+    system \
+    system_ext \
+    odm \
+    vendor
+BOARD_SAMSUNG_DYNAMIC_PARTITIONS_SIZE := 9122611200
 
-BOARD_CACHEIMAGE_FILE_SYSTEM_TYPE := ext4
-BOARD_ODMIMAGE_FILE_SYSTEM_TYPE := ext4
-BOARD_PRODUCTIMAGE_FILE_SYSTEM_TYPE := ext4
+# Filesystem types for dynamic partitions
 BOARD_SYSTEMIMAGE_FILE_SYSTEM_TYPE := ext4
-BOARD_USERDATAIMAGE_FILE_SYSTEM_TYPE := f2fs
 BOARD_VENDORIMAGE_FILE_SYSTEM_TYPE := ext4
+BOARD_PRODUCTIMAGE_FILE_SYSTEM_TYPE := ext4
+BOARD_ODMIMAGE_FILE_SYSTEM_TYPE := ext4
+BOARD_SYSTEM_EXTIMAGE_FILE_SYSTEM_TYPE := ext4
 
-TARGET_COPY_OUT_ODM := odm
-TARGET_COPY_OUT_PRODUCT := product
+# Partition mount points
 TARGET_COPY_OUT_VENDOR := vendor
+TARGET_COPY_OUT_PRODUCT := product
+TARGET_COPY_OUT_SYSTEM_EXT := system_ext
+TARGET_COPY_OUT_ODM := odm
 
-BOARD_USES_METADATA_PARTITION := true
-
--include vendor/lineage/config/BoardConfigReservedSize.mk
+# Break circular dependency: linker.config.pb -> INTERNAL_VENDORIMAGE_FILES -> linker.config.pb
+INTERNAL_VENDORIMAGE_FILES := $(filter-out $(TARGET_OUT_VENDOR)/etc/linker.config.pb,$(INTERNAL_VENDORIMAGE_FILES))
 
 # Platform
 TARGET_BOARD_PLATFORM := mt6768
-BOARD_HAS_MTK_HARDWARE := true
 
 # Properties
 TARGET_SYSTEM_PROP += $(DEVICE_PATH)/system.prop
 TARGET_VENDOR_PROP += $(DEVICE_PATH)/vendor.prop
+TARGET_PRODUCT_PROP += $(DEVICE_PATH)/product.prop
 
 # Recovery
-BOARD_INCLUDE_RECOVERY_DTBO := true
 TARGET_RECOVERY_FSTAB := $(DEVICE_PATH)/rootdir/etc/fstab.mt6768
-TARGET_RECOVERY_PIXEL_FORMAT := "RGBX_8888"
-TARGET_USERIMAGES_USE_EXT4 := true
-TARGET_USERIMAGES_USE_F2FS := true
-
-# Releasetools
-TARGET_RELEASETOOLS_EXTENSIONS := $(DEVICE_PATH)
-
-# RIL
-ENABLE_VENDOR_RIL_SERVICE := true
 
 # SPL
 VENDOR_SECURITY_PATCH := 2025-01-01
@@ -146,10 +129,6 @@ include device/mediatek/sepolicy_vndr/SEPolicy.mk
 SYSTEM_EXT_PRIVATE_SEPOLICY_DIRS += $(DEVICE_PATH)/sepolicy/private
 SYSTEM_EXT_PUBLIC_SEPOLICY_DIRS += $(DEVICE_PATH)/sepolicy/public
 BOARD_VENDOR_SEPOLICY_DIRS += $(DEVICE_PATH)/sepolicy/vendor
-
-# UDFPS
-TARGET_SEC_FP_REQUEST_FORCE_CALIBRATE := true
-TARGET_SURFACEFLINGER_UDFPS_LIB := //$(DEVICE_PATH):libudfps_extension.a32
 
 # Verified Boot
 BOARD_AVB_ENABLE := true
@@ -194,4 +173,4 @@ WIFI_HIDL_UNIFIED_SUPPLICANT_SERVICE_RC_ENTRY := true
 WIFI_HIDL_FEATURE_DUAL_INTERFACE := true
 
 # Inherit the proprietary files
-include vendor/samsung/a32/BoardConfigVendor.mk
+include vendor/samsung/m32/BoardConfigVendor.mk
