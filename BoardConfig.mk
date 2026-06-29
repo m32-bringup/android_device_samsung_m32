@@ -48,7 +48,7 @@ BOARD_BOOTIMG_HEADER_VERSION := 2
 BOARD_PREBUILT_DTBOIMAGE := $(DEVICE_PATH)/prebuilts/dtbo.img
 BOARD_INCLUDE_DTB_IN_BOOTIMG := true
 
-BOARD_KERNEL_CMDLINE := bootopt=64S3,32N2,64N2 loop.max_part=7
+BOARD_KERNEL_CMDLINE := bootopt=64S3,32N2,64N2 loop.max_part=7 mtk_wdt=0 wdt=0 androidboot.super_partition=super androidboot.hardware=mt6768 androidboot.boot_devices=bootdevice androidboot.console=tty0 printk.devkmsg=on androidboot.selinux=permissive
 
 BOARD_MKBOOTIMG_ARGS := --base $(BOARD_KERNEL_BASE)
 BOARD_MKBOOTIMG_ARGS += --pagesize $(BOARD_KERNEL_PAGESIZE)
@@ -174,3 +174,6 @@ WIFI_HIDL_FEATURE_DUAL_INTERFACE := true
 
 # Inherit the proprietary files
 include vendor/samsung/m32/BoardConfigVendor.mk
+
+# Metadata
+BOARD_USES_METADATA_PARTITION := true
