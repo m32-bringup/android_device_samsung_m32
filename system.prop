@@ -38,9 +38,12 @@ ro.vendor.system.mtk_mapi_support=1
 Build.BRAND=MTK
 
 # IMS
-persist.dbg.volte_avail_ovr=1
-persist.dbg.vt_avail_ovr=1
-persist.dbg.wfc_avail_ovr=1
+persist.dbg.volte_avail_ovr=0
+persist.dbg.vt_avail_ovr=0
+persist.dbg.wfc_avail_ovr=0
+
+# Dual SIM
+persist.radio.multisim.config=dsds
 
 # Kernel
 ro.kernel.qemu=0
