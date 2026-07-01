@@ -14,7 +14,7 @@
 /mnt/vendor/efs(/.*)?                                               u:object_r:efs_file:s0
 
 # Fingerprint
-/(vendor|system/vendor)/bin/hw/android\.hardware\.biometrics\.fingerprint@[0-9]\.[0-9]-service-samsung\.a32     u:object_r:hal_fingerprint_default_exec:s0
+/(vendor|system/vendor)/bin/hw/vendor\.samsung\.hardware\.biometrics\.fingerprint@3\.0-service     u:object_r:hal_fingerprint_default_exec:s0
 /data/vendor/biometrics(/.*)?                                                                       u:object_r:biometrics_vendor_data_file:s0
 /dev/esfp[0-9]                                                                                      u:object_r:fp_sensor_device:s0
 
@@ -26,6 +26,13 @@
 
 # Hyper
 /(vendor|system/vendor)/bin/hw/vendor\.samsung\.hardware\.hyper-service                     u:object_r:hal_hyper_default_exec:s0
+
+# I2C nodes
+/sys/devices/platform/1100f000\.i2c3/i2c-3/[^/]+/wakeup/wakeup[0-9]*(/.*)?       u:object_r:sysfs_wakeup:s0
+/sys/devices/platform/11016000\.i2c5/i2c-5/[^/]+/wakeup/wakeup[0-9]*(/.*)?       u:object_r:sysfs_wakeup:s0
+/sys/devices/platform/1100d000\.i2c6/i2c-6/[^/]+/wakeup/wakeup[0-9]*(/.*)?       u:object_r:sysfs_wakeup:s0
+/sys/devices/platform/i2c@31/i2c-31/[^/]+/wakeup/wakeup[0-9]*(/.*)?              u:object_r:sysfs_wakeup:s0
+/sys/devices/platform/1000d000\.pwrap/[^/]+/wakeup/wakeup[0-9]*(/.*)?            u:object_r:sysfs_wakeup:s0
 
 # Input
 /(vendor|system/vendor)/bin/hw/vendor\.samsung\.hardware\.sysinput@[1-9]\.[0-9]-service     u:object_r:hal_sec_inputdev_default_exec:s0
@@ -45,10 +52,14 @@
 # Media
 /(vendor|system/vendor)/bin/hw/samsung\.software\.media\.c2@1\.0-service                    u:object_r:mediacodec_exec:s0
 
+# Misc
+/sys/devices/platform/10238000\.gce/wakeup/wakeup[0-9]*(/.*)?                    u:object_r:sysfs_wakeup:s0
+
 # NFC
 /dev/sec-nfc                                                                                u:object_r:nfc_device:s0
 /dev/sec-nfc-fn                                                                             u:object_r:nfc_device:s0
-/(vendor|system/vendor)/bin/hw/sec\.android\.hardware\.nfc@1\.2-service                     u:object_r:hal_nfc_default_exec:s0
+/(vendor|system/vendor)/bin/hw/nxp\.android\.hardware\.nfc@1\.2-service                     u:object_r:hal_nfc_default_exec:s0
+/dev/pn547    u:object_r:nfc_device:s0
 
 # Partitions
 /dev/block/mmcblk0p1                                                u:object_r:efsblk_device:s0
@@ -58,6 +69,7 @@
 
 # Power
 /(vendor|system/vendor)/bin/hw/android\.hardware\.power-service\.a32-libperfmgr             u:object_r:hal_power_default_exec:s0
+/sys/devices/platform/samsung_mobile_device/samsung_mobile_device:battery/power_supply/[^/]+/wakeup[0-9]*(/.*)?    u:object_r:sysfs_wakeup:s0
 
 # RIL
 /vendor/bin/secril_config_svc                                       u:object_r:vendor_secril_config_svc_exec:s0
@@ -66,9 +78,13 @@
 /dev/umts_ipc0                                                      u:object_r:radio_device:s0
 /dev/umts_ipc1                                                      u:object_r:radio_device:s0
 
+# RTC
+/sys/devices/platform/1000d000\.pwrap/.*/rtc/rtc0/wakeup[0-9]*(/.*)?             u:object_r:sysfs_wakeup:s0
+
 # Sensors
 /dev/shub_data_injection                                            u:object_r:shub_device:s0
 /dev/shub_sensorhub                                                 u:object_r:shub_device:s0
+/sys/devices/platform/shub/wakeup/wakeup[0-9]*(/.*)?                             u:object_r:sysfs_wakeup:s0
 /(vendor|system/vendor)/bin/hw/android\.hardware\.sensors-service\.samsung-multihal         u:object_r:hal_sensors_default_exec:s0
 
 # Snap
@@ -94,7 +110,7 @@
 /(vendor|system/vendor)/bin/hw/android\.hardware\.usb@1\.3-service\.coral       u:object_r:hal_usb_default_exec:s0
 
 # Vibrator
-/(vendor|system/vendor)/bin/hw/android\.hardware\.vibrator-service\.samsung     u:object_r:hal_vibrator_default_exec:s0
+/(vendor|system/vendor)/bin/hw/vendor\.samsung\.hardware\.vibrator.*    u:object_r:hal_vibrator_default_exec:s0
 
 # Wi-Fi
 /data/vendor/conn(/.*)?                                                         u:object_r:vendor_convergence_data_file:s0
