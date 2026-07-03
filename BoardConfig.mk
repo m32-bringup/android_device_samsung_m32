@@ -71,7 +71,7 @@ TARGET_RECOVERY_DEVICE_MODULES := libinit_m32
 # Kernel (source build)
 BOARD_KERNEL_IMAGE_NAME := Image.gz
 TARGET_KERNEL_SOURCE := kernel/samsung/mt6768
-TARGET_KERNEL_CONFIG := compiled_defconfig
+TARGET_KERNEL_CONFIG := m32_defconfig
 # TARGET_KERNEL_ADDITIONAL_CONFIG := m32.config battery.config
 
 TARGET_KERNEL_CLANG_COMPILE := true
