@@ -596,11 +596,13 @@ lib64/vendor.mediatek.hardware.pq@2.2.so
 lib64/vendor.mediatek.hardware.pq@2.3.so
 system_ext/lib64/vendor.mediatek.hardware.composer_ext@1.0.so
 vendor/bin/hw/android.hardware.graphics.allocator@4.0-service-mediatek
-vendor/bin/hw/android.hardware.graphics.composer@2.1-service
+vendor/etc/init/android.hardware.graphics.allocator@4.0-service-mediatek.rc
+vendor/lib/hw/android.hardware.graphics.allocator@4.0-impl-mediatek.so
+vendor/lib/hw/android.hardware.graphics.mapper@4.0-impl-mediatek.so
+vendor/lib64/hw/android.hardware.graphics.allocator@4.0-impl-mediatek.so
+vendor/lib64/hw/android.hardware.graphics.mapper@4.0-impl-mediatek.so
 vendor/bin/hw/android.hardware.memtrack@1.0-service
 vendor/bin/hw/vendor.mediatek.hardware.mms@1.6-service
-vendor/etc/init/android.hardware.graphics.allocator@4.0-service-mediatek.rc
-vendor/etc/init/android.hardware.graphics.composer@2.1-service.rc
 vendor/etc/init/android.hardware.memtrack@1.0-service.rc
 vendor/etc/init/vendor.mediatek.hardware.mms@1.6-service.rc
 vendor/lib/egl/egl.cfg
@@ -698,11 +700,7 @@ vendor/lib64/libsynaFpSensorTestNwd.so
 vendor/lib64/libteecl.so
 
 # Gatekeeper
-vendor/bin/hw/android.hardware.gatekeeper@1.0-service
-vendor/etc/init/android.hardware.gatekeeper@1.0-service.rc
-vendor/lib/hw/android.hardware.gatekeeper@1.0-impl.so
 vendor/lib/hw/gatekeeper.mt6769t.so
-vendor/lib64/hw/android.hardware.gatekeeper@1.0-impl.so
 vendor/lib64/hw/gatekeeper.mt6769t.so
 
 # GNSS
@@ -730,10 +728,6 @@ vendor/lib64/vendor.samsung.hardware.health@2.0.so
 vendor/lib64/vendor.samsung.hardware.thermal@1.0.so
 
 # Keymaster
-vendor/bin/hw/android.hardware.keymaster@4.0-service
-vendor/etc/init/android.hardware.keymaster@4.0-service.rc
-vendor/lib64/libkeymaster4.so
-vendor/lib64/libkeymaster4_1support.so
 vendor/lib64/libkeymaster_helper.so
 vendor/lib64/libskeymaster4device.so
 vendor/lib64/vendor.mediatek.hardware.keymaster_attestation@1.0.so
@@ -1085,7 +1079,6 @@ vendor/bin/doeapp-sat
 vendor/bin/dsmsca
 vendor/bin/dtc_vendor
 vendor/bin/dumpsys
-vendor/bin/emservice
 vendor/bin/factory
 vendor/bin/fsdbg_vendor
 vendor/bin/iod
@@ -1144,7 +1137,6 @@ vendor/etc/init/cass.rc
 vendor/etc/init/chipinfo_init.rc
 vendor/etc/init/dmc_core.rc
 vendor/etc/init/dsmsca.rc
-vendor/etc/init/emservice.rc
 vendor/etc/init/face-default-sec.rc
 vendor/etc/init/fingerprint_common.rc
 vendor/etc/init/hostapd.android.rc
@@ -1355,14 +1347,12 @@ vendor/etc/security/cacerts/fd08c599.0
 vendor/etc/security/cacerts/fde84897.0
 vendor/etc/str/str_preference_data.dat
 vendor/etc/sysconfig/vendor-apex-allowlist.xml
-vendor/etc/vintf/manifest/deviceManifest.xml
 vendor/etc/vintf/manifest/engmode_manifest.xml
 vendor/etc/vintf/manifest/face-default-sec.xml
 vendor/etc/vintf/manifest/hyper-default-sec.xml
 vendor/etc/vintf/manifest/lights-default-sec.xml
 vendor/etc/vintf/manifest/manifest_hwcomposer.xml
 vendor/etc/vintf/manifest/manifest_vendor.samsung.hardware.security.widevine.keyprov@1.0-service.xml
-vendor/etc/vintf/manifest/power-default.xml
 vendor/etc/vintf/manifest/sec_c2_manifest_default0_1_2.xml
 vendor/etc/vintf/manifest/vaultkeeper_manifest.xml
 vendor/etc/vintf/manifest/vendor.samsung.hardware.authfw@1.0-manifest.xml
@@ -1374,7 +1364,6 @@ vendor/etc/vintf/manifest/vendor.samsung.hardware.thermal@1.0-manifest.xml
 vendor/etc/vintf/manifest/vendor.samsung.hardware.tlc.hdm@1.1-manifest.xml
 vendor/etc/vintf/manifest/vendor.samsung.hardware.tlc.iccc@1.0-manifest.xml
 vendor/etc/vintf/manifest/vendor.samsung.hardware.tlc.kg@1.1-manifest.xml
-vendor/etc/vintf/manifest/vendor.samsung.hardware.vibrator-default.xml
 vendor/etc/vintf/manifest/vendor.samsung.hardware.wifi.hostapd.xml
 vendor/etc/vintf/manifest/vendor.samsung.hardware.wifi@2.0-service.xml
 vendor/etc/vintf/manifest/wsm_manifest.xml
@@ -2032,3 +2021,14 @@ vendor/tee/00000000-4d54-4b5f-4246-72706d627461
 vendor/tee/ffffffff-0000-0000-0000-000000000030
 vendor/ro.prop
 vendor/rw.prop
+
+# Mediatek HAL implementations
+vendor/lib/hw/android.hardware.audio@6.0-impl-mediatek.so
+vendor/lib/hw/android.hardware.audio@7.0-impl-mediatek.so
+vendor/lib/hw/android.hardware.bluetooth@1.1-impl-mediatek.so
+vendor/lib64/android.hardware.power-service-mediatek.so
+vendor/lib64/hw/android.hardware.audio@6.0-impl-mediatek.so
+vendor/lib64/hw/android.hardware.audio@7.0-impl-mediatek.so
+vendor/lib64/hw/android.hardware.bluetooth@1.1-impl-mediatek.so
+vendor/lib/hw/vulkan.mt6768.so
+vendor/lib64/hw/vulkan.mt6768.so
