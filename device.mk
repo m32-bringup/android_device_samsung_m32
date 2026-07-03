@@ -45,7 +45,10 @@ PRODUCT_COPY_FILES += \
 
 PRODUCT_PACKAGES += \
     libgui_vendor \
-    vndservicemanager
+    vndservicemanager \
+    libnetutils.vendor \
+    libsqlite.vendor \
+    libjsoncpp.vendor
 
 # CAS
 PRODUCT_PACKAGES += \
@@ -396,8 +399,26 @@ PRODUCT_COPY_FILES += \
     vendor/samsung/m32/proprietary/vendor/etc/permissions/android.hardware.vulkan.compute.xml:$(TARGET_COPY_OUT_VENDOR)/etc/permissions/android.hardware.vulkan.compute.xml \
     vendor/samsung/m32/proprietary/vendor/etc/permissions/android.hardware.vulkan.level.xml:$(TARGET_COPY_OUT_VENDOR)/etc/permissions/android.hardware.vulkan.level.xml \
     vendor/samsung/m32/proprietary/vendor/etc/permissions/android.hardware.vulkan.version.xml:$(TARGET_COPY_OUT_VENDOR)/etc/permissions/android.hardware.vulkan.version.xml \
-    vendor/samsung/m32/proprietary/vendor/etc/permissions/android.software.vulkan.deqp.level.xml:$(TARGET_COPY_OUT_VENDOR)/etc/permissions/android.software.vulkan.deqp.level.xml \
-    vendor/samsung/m32/proprietary/vendor/lib/egl/egl.cfg:$(TARGET_COPY_OUT_VENDOR)/lib/egl/egl.cfg
+    vendor/samsung/m32/proprietary/vendor/etc/permissions/android.software.vulkan.deqp.level.xml:$(TARGET_COPY_OUT_VENDOR)/etc/permissions/android.software.vulkan.deqp.level.xml
+#    vendor/samsung/m32/proprietary/vendor/lib/egl/egl.cfg:$(TARGET_COPY_OUT_VENDOR)/lib/egl/egl.cfg
+
 
 # Inherit the proprietary files
 $(call inherit-product, vendor/samsung/m32/m32-vendor.mk)
+
+# Gatekeeper
+PRODUCT_PACKAGES += \
+    android.hardware.gatekeeper@1.0-impl \
+    android.hardware.gatekeeper@1.0-service
+
+# Keymaster
+PRODUCT_PACKAGES += \
+    android.hardware.keymaster@4.0-service \
+    libkeymaster4_1support.vendor \
+    libpuresoftkeymasterdevice.vendor
+
+# Graphics
+PRODUCT_PACKAGES += \
+    android.hardware.graphics.allocator@4.0.vendor \
+    android.hardware.graphics.composer@2.1-service
+
