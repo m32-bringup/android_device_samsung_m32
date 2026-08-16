@@ -441,6 +441,7 @@ PRODUCT_PACKAGES += \
     android.hardware.wifi.hostapd@1.3.vendor \
     hostapd \
     libwifi-hal-wrapper \
+    libwifi-system-iface.vendor \
     wpa_supplicant
 
 PRODUCT_COPY_FILES += \
