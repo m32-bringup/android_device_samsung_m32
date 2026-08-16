@@ -1,4 +1,9 @@
 
+# ABI
+ro.product.cpu.abilist=arm64-v8a,armeabi-v7a,armeabi
+ro.product.cpu.abilist32=armeabi-v7a,armeabi
+ro.product.cpu.abilist64=arm64-v8a
+
 # AEE
 ro.vendor.have_aee_feature=1
 
@@ -103,8 +108,9 @@ ro.vendor.mtk_telephony_add_on_policy=0
 qemu.hw.mainkeys=0
 
 # USB
+persist.sys.usb.config=adb
 ro.sys.usb.bicr=no
-ro.sys.usb.charging.only=yes
+ro.sys.usb.charging.only=no
 ro.sys.usb.mtp.whql.enable=0
 ro.sys.usb.storage.type=mtp
 
