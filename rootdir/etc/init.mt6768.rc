@@ -152,6 +152,18 @@ on fs
 on post-fs
     write /proc/bootprof "INIT:post-fs"
 
+    # AIDL NDK shims
+    symlink /vendor/lib64/android.hardware.vibrator-V2-ndk.so /vendor/lib64/android.hardware.vibrator-V2-ndk_platform.so
+    symlink /vendor/lib64/android.system.keystore2-V1-ndk.so /vendor/lib64/android.system.keystore2-V1-ndk_platform.so
+    symlink /vendor/lib64/android.hardware.biometrics.common-V1-ndk.so /vendor/lib64/android.hardware.biometrics.common-V1-ndk_platform.so
+    symlink /vendor/lib64/android.hardware.biometrics.face-V1-ndk.so /vendor/lib64/android.hardware.biometrics.face-V1-ndk_platform.so
+    symlink /vendor/lib64/android.hardware.keymaster-V3-ndk.so /vendor/lib64/android.hardware.keymaster-V3-ndk_platform.so
+    symlink /vendor/lib64/android.hardware.graphics.common-V2-ndk.so /vendor/lib64/android.hardware.graphics.common-V2-ndk_platform.so
+
+    symlink /vendor/lib/android.hardware.biometrics.common-V1-ndk.so /vendor/lib/android.hardware.biometrics.common-V1-ndk_platform.so
+    symlink /vendor/lib/android.hardware.biometrics.face-V1-ndk.so /vendor/lib/android.hardware.biometrics.face-V1-ndk_platform.so
+    symlink /vendor/lib/android.hardware.graphics.common-V2-ndk.so /vendor/lib/android.hardware.graphics.common-V2-ndk_platform.so
+
     # boot perf. tune
     write /proc/perfmgr/boost_ctrl/eas_ctrl/boot_boost "0 100"
     write /proc/perfmgr/boost_ctrl/eas_ctrl/boot_boost "1 100"
