@@ -578,22 +578,6 @@ vendor/etc/init/android.hardware.cas@1.2-service-lazy.rc
 vendor/etc/vintf/manifest/android.hardware.cas@1.2-service-lazy.xml
 
 # Display
-lib/vendor.mediatek.hardware.mms@1.0.so
-lib/vendor.mediatek.hardware.mms@1.1.so
-lib/vendor.mediatek.hardware.mms@1.2.so
-lib/vendor.mediatek.hardware.mms@1.3.so
-lib/vendor.mediatek.hardware.pq@2.0.so
-lib/vendor.mediatek.hardware.pq@2.1.so
-lib/vendor.mediatek.hardware.pq@2.2.so
-lib/vendor.mediatek.hardware.pq@2.3.so
-lib64/vendor.mediatek.hardware.mms@1.0.so
-lib64/vendor.mediatek.hardware.mms@1.1.so
-lib64/vendor.mediatek.hardware.mms@1.2.so
-lib64/vendor.mediatek.hardware.mms@1.3.so
-lib64/vendor.mediatek.hardware.pq@2.0.so
-lib64/vendor.mediatek.hardware.pq@2.1.so
-lib64/vendor.mediatek.hardware.pq@2.2.so
-lib64/vendor.mediatek.hardware.pq@2.3.so
 system_ext/lib64/vendor.mediatek.hardware.composer_ext@1.0.so
 vendor/bin/hw/android.hardware.graphics.allocator@4.0-service-mediatek
 vendor/etc/init/android.hardware.graphics.allocator@4.0-service-mediatek.rc
@@ -743,27 +727,6 @@ vendor/lib64/hw/local_time.default.so
 
 # Media
 etc/seccomp_policy/mediacodec.policy
-lib/libdatasource.so
-lib/libdatasource_local_cache.so
-lib/libhdcp2.so
-lib/libhdcp_client_aidl.so
-lib/libmedia_codeclist.so
-lib/libomafldrm.so
-lib/libstagefright_bufferpool@2.0.1.so
-lib/libstagefright_codecbase.so
-lib/libstagefright_framecapture_utils.so
-lib/libstagefright_hdcp.so
-lib/libstagefright_httplive_sec.so
-lib/libstagefright_surface_utils.so
-lib/vendor.samsung.hardware.security.hdcp.wifidisplay-V2-ndk.so
-lib64/libdatasource.so
-lib64/libdatasource_local_cache.so
-lib64/libmedia_codeclist.so
-lib64/libomafldrm.so
-lib64/libstagefright_bufferpool@2.0.1.so
-lib64/libstagefright_codecbase.so
-lib64/libstagefright_framecapture_utils.so
-lib64/libstagefright_surface_utils.so
 vendor/bin/hw/android.hardware.media.c2@1.2-mediatek
 vendor/bin/hw/android.hardware.media.c2@1.2-mediatek-64b
 vendor/bin/hw/android.hardware.media.omx@1.0-service
@@ -935,9 +898,6 @@ vendor/lib64/vendor.samsung.hardware.radio@2.1.so
 vendor/lib64/vendor.samsung.hardware.radio@2.2.so
 
 # Radio (IMS)
-bin/charon
-lib64/libcharon.so
-lib64/libstrongswan.so
 vendor/bin/ipsec_mon
 vendor/bin/rcs_volte_stack
 vendor/bin/volte_clientapi_ua
@@ -1356,7 +1316,7 @@ vendor/etc/vintf/manifest/manifest_vendor.samsung.hardware.security.widevine.key
 vendor/etc/vintf/manifest/sec_c2_manifest_default0_1_2.xml
 vendor/etc/vintf/manifest/vaultkeeper_manifest.xml
 vendor/etc/vintf/manifest/vendor.samsung.hardware.authfw@1.0-manifest.xml
-vendor/etc/vintf/manifest/vendor.samsung.hardware.biometrics.fingerprint@3.0-service.xml
+-vendor/etc/vintf/manifest/vendor.samsung.hardware.biometrics.fingerprint@3.0-service.xml
 vendor/etc/vintf/manifest/vendor.samsung.hardware.hqm@1.0-manifest.xml
 vendor/etc/vintf/manifest/vendor.samsung.hardware.security.hdcp.wifidisplay-default.xml
 vendor/etc/vintf/manifest/vendor.samsung.hardware.snap-default.xml

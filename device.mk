@@ -17,7 +17,19 @@ $(call inherit-product, $(SRC_TARGET_DIR)/product/non_ab_device.mk)
 
 PRODUCT_PACKAGES += \
     android.hardware.soundtrigger@2.0-impl \
-    android.hardware.soundtrigger@2.3.vendor
+    android.hardware.soundtrigger@2.3.vendor \
+    android.hardware.audio@6.0.vendor \
+    android.hardware.audio@6.0-util.vendor \
+    android.hardware.audio.common@6.0.vendor \
+    android.hardware.audio.common@6.0-util.vendor \
+    android.hardware.audio@7.0.vendor \
+    android.hardware.audio@7.0-util.vendor \
+    android.hardware.audio.common@7.0.vendor \
+    android.hardware.audio.common@7.0-util.vendor \
+    android.hardware.audio.effect@6.0.vendor \
+    android.hardware.audio.effect@6.0-util.vendor \
+    android.hardware.audio.effect@7.0.vendor \
+    android.hardware.audio.effect@7.0-util.vendor
 
 PRODUCT_PACKAGES += \
     MtkInCallService
@@ -59,6 +71,25 @@ PRODUCT_COPY_FILES += \
     system/core/libprocessgroup/profiles/cgroups_30.json:$(TARGET_COPY_OUT_VENDOR)/etc/cgroups.json \
     $(LOCAL_PATH)/configs/task_profiles.json:$(TARGET_COPY_OUT_VENDOR)/etc/task_profiles.json
 
+# Bluetooth
+PRODUCT_PACKAGES += \
+    android.hardware.bluetooth@1.0.vendor \
+    android.hardware.bluetooth@1.1.vendor
+
+# Camera
+PRODUCT_PACKAGES += \
+    android.hardware.camera.provider@2.4.vendor \
+    android.hardware.camera.provider@2.5.vendor \
+    android.hardware.camera.provider@2.6.vendor \
+    android.hardware.camera.device@3.5.vendor \
+    android.hardware.camera.device@3.6.vendor \
+    android.frameworks.cameraservice.device@2.0.vendor \
+    android.frameworks.cameraservice.device@2.1.vendor \
+    android.frameworks.cameraservice.common@2.0.vendor \
+    android.frameworks.cameraservice.service@2.0.vendor \
+    android.frameworks.cameraservice.service@2.1.vendor \
+    android.frameworks.cameraservice.service@2.2.vendor
+
 # Charger
 PRODUCT_PACKAGES += \
     charger_res_images_vendor \
@@ -73,8 +104,6 @@ PRODUCT_PACKAGES += \
     android.hardware.graphics.mapper@2.0-impl \
     android.hardware.graphics.mapper@2.0-impl-2.1 \
     libvulkan
-
-
 
 # DRM
 PRODUCT_PACKAGES += \
@@ -100,35 +129,40 @@ PRODUCT_PACKAGES += \
 
 # Fingerprint
 PRODUCT_PACKAGES += \
-
-
+    android.hardware.biometrics.fingerprint@2.1.vendor
 
 # GPS
 PRODUCT_PACKAGES += \
     android.hardware.gnss@1.1.vendor \
     android.hardware.gnss@2.1.vendor \
     android.hardware.gnss.measurement_corrections@1.1.vendor \
-    android.hardware.gnss.visibility_control@1.0.vendor
+    android.hardware.gnss.visibility_control@1.0.vendor \
+    libcurl.vendor
 
 # Health
 PRODUCT_PACKAGES += \
     android.hardware.health-service.mediatek \
-    android.hardware.health-service.mediatek-recovery
+    android.hardware.health-service.mediatek-recovery \
+    android.hardware.health@1.0.vendor \
+    android.hardware.health@2.0.vendor \
+    android.hardware.health@2.1.vendor
 
-# HIDL
+# HIDL & Vendor Libs
 PRODUCT_PACKAGES += \
     android.hidl.allocator@1.0 \
     android.hidl.allocator@1.0.vendor \
     libhidltransport \
     libhidltransport.vendor \
     libhwbinder \
-    libhwbinder.vendor
+    libhwbinder.vendor \
+    libexpat.vendor \
+    libexif.vendor \
+    libjsoncpp.vendor \
+    libsqlite.vendor
 
 # Inherit several Android Go Configurations (Beneficial for everyone, even on non-Go devices)
 PRODUCT_USE_PROFILE_FOR_BOOT_IMAGE := true
 PRODUCT_DEX_PREOPT_BOOT_IMAGE_PROFILE_LOCATION := frameworks/base/config/boot-image-profile.txt
-
-
 
 PRODUCT_PACKAGES += \
     libkeystore-wifi-hidl \
@@ -159,7 +193,13 @@ PRODUCT_COPY_FILES += \
 PRODUCT_PACKAGES += \
     android.hardware.common-V2-ndk_platform.vendor \
     android.hardware.light-V1-ndk_platform.vendor \
-    android.hardware.power-V2-ndk_platform.vendor
+    android.hardware.power-V2-ndk_platform.vendor \
+    android.hardware.biometrics.common-V1-ndk.vendor \
+    android.hardware.biometrics.face-V1-ndk.vendor \
+    android.hardware.graphics.common-V2-ndk.vendor \
+    android.hardware.keymaster-V3-ndk.vendor \
+    android.hardware.vibrator-V2-ndk.vendor \
+    android.system.keystore2-V1-ndk.vendor
 
 # Neural Networks
 PRODUCT_PACKAGES += \
@@ -308,7 +348,8 @@ PRODUCT_PACKAGES += \
     init_connectivity.rc \
     init.recovery.mt6768.rc \
     init.recovery.mt6769t.rc \
-    init.recovery.samsung.rc
+    init.recovery.samsung.rc \
+    ueventd.mtk.rc
 
 PRODUCT_COPY_FILES += \
     $(LOCAL_PATH)/rootdir/etc/fstab.mt6768:$(TARGET_COPY_OUT_RAMDISK)/fstab.mt6768 \
@@ -326,7 +367,8 @@ PRODUCT_COPY_FILES += \
 PRODUCT_PACKAGES += \
     android.frameworks.sensorservice@1.0.vendor \
     android.hardware.sensors-service.samsung-multihal \
-    android.hardware.sensors@1.0.vendor
+    android.hardware.sensors@1.0.vendor \
+    android.hardware.sensors@2.0-ScopedWakelock.vendor
 
 PRODUCT_COPY_FILES += \
     $(LOCAL_PATH)/configs/sensors/hals.conf:$(TARGET_COPY_OUT_VENDOR)/etc/sensors/hals.conf
@@ -382,6 +424,21 @@ PRODUCT_PACKAGES += \
     android.hardware.tetheroffload.control@1.1.vendor
 
 PRODUCT_PACKAGES += \
+    android.hardware.wifi@1.0.vendor \
+    android.hardware.wifi@1.1.vendor \
+    android.hardware.wifi@1.2.vendor \
+    android.hardware.wifi@1.3.vendor \
+    android.hardware.wifi@1.4.vendor \
+    android.hardware.wifi@1.5.vendor \
+    android.hardware.wifi.supplicant@1.0.vendor \
+    android.hardware.wifi.supplicant@1.1.vendor \
+    android.hardware.wifi.supplicant@1.2.vendor \
+    android.hardware.wifi.supplicant@1.3.vendor \
+    android.hardware.wifi.supplicant@1.4.vendor \
+    android.hardware.wifi.hostapd@1.0.vendor \
+    android.hardware.wifi.hostapd@1.1.vendor \
+    android.hardware.wifi.hostapd@1.2.vendor \
+    android.hardware.wifi.hostapd@1.3.vendor \
     android.hardware.wifi-service \
     hostapd \
     libwifi-hal-wrapper \
@@ -408,12 +465,12 @@ $(call inherit-product, vendor/samsung/m32/m32-vendor.mk)
 
 # Gatekeeper
 PRODUCT_PACKAGES += \
-    android.hardware.gatekeeper@1.0-impl \
-    android.hardware.gatekeeper@1.0-service
+    android.hardware.gatekeeper@1.0-service.software
 
-# Keymaster
+# Keymaster / KeyMint
 PRODUCT_PACKAGES += \
     android.hardware.keymaster@4.0-service \
+    android.hardware.security.keymint-service \
     libkeymaster4_1support.vendor \
     libpuresoftkeymasterdevice.vendor
 
