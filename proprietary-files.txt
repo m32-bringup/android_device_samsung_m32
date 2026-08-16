@@ -724,6 +724,12 @@ vendor/lib64/hw/lights.mt6768.so
 # Local time
 vendor/lib/hw/local_time.default.so
 vendor/lib64/hw/local_time.default.so
+vendor/lib/android.system.keystore2-V1-ndk_platform.so
+vendor/lib64/android.system.keystore2-V1-ndk_platform.so
+vendor/lib/android.hardware.vibrator-V2-ndk_platform.so
+vendor/lib64/android.hardware.vibrator-V2-ndk_platform.so
+vendor/lib/android.hardware.biometrics.common-V1-ndk_platform.so
+vendor/lib64/android.hardware.biometrics.common-V1-ndk_platform.so
 
 # Media
 etc/seccomp_policy/mediacodec.policy
