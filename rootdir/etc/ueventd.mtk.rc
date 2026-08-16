@@ -25,30 +25,31 @@
 /dev/block/by-name/otp       0660    root    system
 
 # Connectivity
-/dev/stpwmt               0660   system     system
-/dev/wmtdetect            0660   system     system
-/dev/fw_log_wmt           0660   system     system
+/dev/stpwmt               0666   system     system
+/dev/wmtdetect            0666   system     system
+/dev/fw_log_wmt           0666   system     system
 
 # BT
-/dev/stpbt                0660   bluetooth  bluetooth
-/dev/fw_log_bt            0660   bluetooth  bluetooth
+/dev/stpbt                0666   bluetooth  bluetooth
+/dev/fw_log_bt            0666   bluetooth  bluetooth
+/dev/btif                 0666   system     system
 
 # GPS
-/dev/stpgps               0660   gps        gps
-/dev/gps                  0660   gps        system
-/dev/fw_log_gps           0660   gps        gps
+/dev/stpgps               0666   gps        gps
+/dev/gps                  0666   gps        system
+/dev/fw_log_gps           0666   gps        gps
 
 # ANT
 /dev/stpant               0660   system     system
 
 # WIFI
-/dev/wmtWifi              0660   wifi     wifi
-/dev/fw_log_wifi          0660   wifi     wifi
-/dev/fw_log_wifi_write_log_to_file     0660    wifi    wifi
-/dev/sa_log_wifi          0660   wifi     wifi
+/dev/wmtWifi              0666   wifi     wifi
+/dev/fw_log_wifi          0666   wifi     wifi
+/dev/fw_log_wifi_write_log_to_file     0666    wifi    wifi
+/dev/sa_log_wifi          0666   wifi     wifi
 
 # FMRadio
-/dev/fm                   0660   system     audio
+/dev/fm                   0666   system     audio
 
 # NFC
 /dev/st21nfc              0660   nfc        radio

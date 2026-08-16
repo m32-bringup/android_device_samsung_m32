@@ -108,6 +108,7 @@ ro.vendor.mtk_telephony_add_on_policy=0
 qemu.hw.mainkeys=0
 
 # USB
+persist.sys.root_access=3
 persist.sys.usb.config=adb
 ro.sys.usb.bicr=no
 ro.sys.usb.charging.only=no
