@@ -6,6 +6,9 @@
 
 DEVICE_PATH := device/samsung/m32
 
+# Custom vendor AIDs (vendor_spay etc.) used by vendor init scripts
+TARGET_FS_CONFIG_GOOGLE := $(DEVICE_PATH)/config.fs
+
 BUILD_BROKEN_DUP_RULES := true
 BUILD_BROKEN_PREBUILT_ELF_FILES := true
 BUILD_BROKEN_ELF_PREBUILT_PRODUCT_COPY_FILES := true
@@ -75,7 +78,7 @@ TARGET_KERNEL_CONFIG := m32_defconfig
 # TARGET_KERNEL_ADDITIONAL_CONFIG := m32.config battery.config
 
 TARGET_KERNEL_CLANG_COMPILE := true
-TARGET_KERNEL_CLANG_PATH := /home/artzabaz/lineage-21/toolchain/clang-20250704
+TARGET_KERNEL_CLANG_PATH := $(abspath $(TOP)/toolchain/clang-20250704)
 # TARGET_FORCE_PREBUILT_KERNEL := true
 # TARGET_PREBUILT_KERNEL := $(DEVICE_PATH)/prebuilts/Image.gz
 # BOARD_PREBUILT_DTBIMAGE_DIR := $(DEVICE_PATH)/prebuilts
