@@ -274,18 +274,6 @@
       "DefaultIndex": 0
     },
     {
-      "Name": "GPUBlockBoost",
-      "Path": "/sys/kernel/fpsgo/common/gpu_block_boost",
-      "Values": [
-        "101",
-        "50",
-        "0",
-        "-1"
-      ],
-      "ResetOnInit": true,
-      "DefaultIndex": 2
-    },
-    {
       "Name": "UclampMin",
       "Path": "/proc/perfmgr/boost_ctrl/eas_ctrl/perfserv_uclamp_min",
       "Values": [
@@ -332,16 +320,6 @@
         "0"
       ],
       "ResetOnInit": true
-    },
-    {
-      "Name": "FBTBoostTA",
-      "Path": "/sys/kernel/fpsgo/fbt/boost_ta",
-      "Values": [
-        "0",
-        "1"
-      ],
-      "ResetOnInit": true,
-      "DefaultIndex": 0
     },
     {
       "Name": "PowerHALMainState",
@@ -470,12 +448,6 @@
     },
     {
       "PowerHint": "LAUNCH",
-      "Node": "FBTBoostTA",
-      "Duration": 3000,
-      "Value": "1"
-    },
-    {
-      "PowerHint": "LAUNCH",
       "Node": "CPUBigClusterMaxFreq",
       "Duration": 3000,
       "Value": "2000000"
@@ -512,12 +484,6 @@
     },
     {
       "PowerHint": "LAUNCH",
-      "Node": "GPUBlockBoost",
-      "Duration": 3000,
-      "Value": "101"
-    },
-    {
-      "PowerHint": "LAUNCH",
       "Node": "DRAMOppMin",
       "Duration": 3000,
       "Value": "1"
@@ -539,12 +505,6 @@
       "Node": "GPUSchedMode",
       "Duration": 0,
       "Value": "1"
-    },
-    {
-      "PowerHint": "EXPENSIVE_RENDERING",
-      "Node": "GPUBlockBoost",
-      "Duration": 0,
-      "Value": "50"
     }
   ]
 }

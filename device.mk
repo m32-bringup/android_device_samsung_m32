@@ -71,6 +71,10 @@ PRODUCT_COPY_FILES += \
     system/core/libprocessgroup/profiles/cgroups_30.json:$(TARGET_COPY_OUT_VENDOR)/etc/cgroups.json \
     $(LOCAL_PATH)/configs/task_profiles.json:$(TARGET_COPY_OUT_VENDOR)/etc/task_profiles.json
 
+# IDC files - prevent sec_touchpad (INPUT_PROP_POINTER) from showing a cursor
+PRODUCT_COPY_FILES += \
+    $(LOCAL_PATH)/configs/idc/sec_touchpad.idc:$(TARGET_COPY_OUT_VENDOR)/usr/idc/sec_touchpad.idc
+
 # Bluetooth
 PRODUCT_PACKAGES += \
     android.hardware.bluetooth@1.0.vendor \
@@ -462,6 +466,14 @@ PRODUCT_COPY_FILES += \
 
 # Inherit the proprietary files
 $(call inherit-product, vendor/samsung/m32/m32-vendor.mk)
+
+# WiFi: Override vendor HIDL wpa_supplicant RC with AOSP AIDL version.
+# The vendor prebuilt wpa_supplicant is a HIDL binary whose RC declares only HIDL
+# interfaces. The AOSP-built binary (PRODUCT_PACKAGES += wpa_supplicant) is already
+# AIDL-capable; we just need the matching AIDL service RC so the framework can find
+# android.hardware.wifi.supplicant.ISupplicant/default via AIDL.
+PRODUCT_COPY_FILES += \
+    external/wpa_supplicant_8/wpa_supplicant/aidl/android.hardware.wifi.supplicant-service.rc:$(TARGET_COPY_OUT_VENDOR)/etc/init/android.hardware.wifi.supplicant-service.rc
 
 # Gatekeeper
 PRODUCT_PACKAGES += \
